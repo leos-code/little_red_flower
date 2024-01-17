@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import "./App.css";
 import { Avatar, AvatarFallback, AvatarImage } from "./components/ui/avatar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card";
@@ -24,16 +24,6 @@ interface RewardRecord{
 
 function App() {
   const [rewardRecord, setRewardRecord] = useState<RewardRecord[]>([])
-  const flowerCount = rewardRecord.length
-
-  useEffect(() => {
-    fetch('http://localhost:3001/rewards')
-      .then(res => res.json())
-      .then(data => {
-        setRewardRecord(data)
-      })
-  }
-  , [])
 
   function addRewards() {}
 
@@ -41,8 +31,8 @@ function App() {
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline" className='h-20 w-20'>
-            <Avatar className="h-20 w-20" onClick={addRewards}>
+          <Button variant="outline">
+            <Avatar className="" onClick={addRewards}>
               <AvatarImage src="https://github.com/shadcn.png"></AvatarImage>
               <AvatarFallback>XXX</AvatarFallback>
             </Avatar>
@@ -73,15 +63,10 @@ function App() {
         </DialogContent>
       </Dialog>
 
-      <Card className="my-20">
-        <CardHeader>
-          <CardTitle>本月奖励的花朵数量</CardTitle>
-        </CardHeader>
+      <Card className="w-100">
+        <CardHeader>本月奖励的花朵</CardHeader>
         <CardContent>
-          {/* Loop the Flower component flowerCount number of times */}
-          {Array.from({ length: flowerCount }).map((_, index) => (
-            <Flower key={index} color="#eb0505" strokeWidth="1.5" size={40} />
-          ))}
+          <Flower color="#eb0505" strokeWidth="1.5" size={40}></Flower>
         </CardContent>
       </Card>
 
@@ -92,9 +77,7 @@ function App() {
             <CardDescription>奖励记录</CardDescription>
           </CardHeader>
           <CardContent>
-            {rewardRecord.map((record, index) => (
-              <div key={index}>{record.content}</div>
-            ))}
+            {}
           </CardContent>
         </Card>
       </div>
